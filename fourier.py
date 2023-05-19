@@ -28,7 +28,7 @@ class Fourier:
         ax[0].set_ylabel('Amplitude')
         ax[0].set_title(self.title)
 
-        ax[1].plot(xf[:self.N//10],2./N * np.abs(yf[:N//10]))
+        ax[1].plot(xf[:self.N//20],2./N * np.abs(yf[:N//20]))
         ax[1].set_xlabel('Frequency (Hz)')
         ax[1].set_ylabel('Power')
         ax[1].set_title('Fourier Transform')
@@ -43,13 +43,17 @@ def sine(x):
 def cosine(x):
     return np.cos(500.*2.*np.pi*x)
 
+def rand(x):
+    return np.sin(250.*2.*np.pi*x) + 0.3*np.sin(100.*2.*np.pi*x) + 0.25*np.sin(400.*2.*np.pi*x)
+
 
 x = np.linspace(0.,N*T,N,endpoint=False)
 
 sine_test = Fourier(x,sine(x),N,T,'100 Hz Sine Wave')
 cosine_test = Fourier(x,cosine(x),N,T,'500Hz Cosine Wave')
+rand_func = Fourier(x,rand(x),N,T,'Random Waveform')
 
-funcs = [sine_test,cosine_test]
+funcs = [sine_test,cosine_test,rand_func]
 
 for f in funcs:
     f.plot()
